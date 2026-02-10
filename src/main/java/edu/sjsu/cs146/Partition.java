@@ -40,4 +40,38 @@ public class Partition {
 
         return i + 1;
     }
+    /*
+     * Hoare partition:
+     * - Pivot is the first element.
+     * - Two pointers move inward and we swap out of place values.
+     * - Returns a split index (pivot is not guaranteed to end in final position).
+     */
+    public static int partitionHoare(int[] a, int low, int high) {
+
+        if (a == null)
+            throw new IllegalArgumentException("Array is null");
+
+        if (a.length == 0)
+            return -1;
+
+        int pivot = a[low];
+        int i = low - 1;
+        int j = high + 1;
+
+        while (true) {
+
+            // Move i right until a[i] >= pivot
+            do { i++; } while (a[i] < pivot);
+
+            // Move j left until a[j] <= pivot
+            do { j--; } while (a[j] > pivot);
+
+            // If pointers crossed, j is the split point
+            if (i >= j)
+                return j;
+
+            swap(a, i, j);
+        }
+    }
+
 }
